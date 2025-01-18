@@ -1,15 +1,11 @@
 {
-  "name": "plc-back-sample",
+  "name": "json-server-custom",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Custom JSON Server with _id support",
   "scripts": {
-    "start": "json-server --watch db.json --port 3001"
+    "start": "json-server --watch db.json --port 3001 --id _id"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "json-server": "^1.0.0-beta.3"
+    "json-server": "^0.17.4"
   }
 }

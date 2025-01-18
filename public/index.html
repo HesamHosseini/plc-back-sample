@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Documentation</title>
+    <style>
+      /* Modern Dark Theme */
+      body {
+        font-family: "Arial", sans-serif;
+        background: #1e1e2f;
+        color: #ffffff;
+        margin: 0;
+        padding: 20px;
+      }
+      h1 {
+        color: #6bd1ff;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .endpoint {
+        background: #2a2a40;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .endpoint h2 {
+        margin: 0 0 10px;
+        color: #6bd1ff;
+        font-size: 1.2em;
+      }
+      .endpoint p {
+        margin: 5px 0;
+        color: #a9a9b3;
+      }
+      .endpoint .method {
+        font-weight: bold;
+        color: #fff;
+        background: #6bd1ff;
+        padding: 5px 10px;
+        border-radius: 4px;
+        margin-right: 10px;
+        font-size: 0.9em;
+      }
+      .endpoint .url {
+        color: #6bd1ff;
+        font-family: monospace;
+      }
+      .test-form {
+        margin-top: 15px;
+      }
+      .test-form input,
+      .test-form textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        border: 1px solid #444;
+        border-radius: 4px;
+        background: #333;
+        color: #fff;
+        font-family: monospace;
+      }
+      .test-form textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+      .test-form button {
+        background: #6bd1ff;
+        color: #1e1e2f;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.3s ease;
+      }
+      .test-form button:hover {
+        background: #4fa3cc;
+      }
+      .response {
+        margin-top: 15px;
+        padding: 15px;
+        background: #333;
+        border: 1px solid #444;
+        border-radius: 4px;
+        white-space: pre-wrap;
+        font-family: monospace;
+        color: #fff;
+        max-height: 300px;
+        overflow-y: auto;
+      }
+      .response.success {
+        border-color: #6bd1ff;
+      }
+      .response.error {
+        border-color: #ff6b6b;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>API Documentation</h1>
+    <p>
+      Welcome to the Home Automation System API. Below is a list of available
+      endpoints:
+    </p>
+
+    <div id="endpoints"></div>
+
+    <script>
+      // Define your API endpoints
+      const apiEndpoints = [
+        {
+          method: "GET",
+          url: "/controllers",
+          description: "Get a list of all controllers.",
+          hasParams: false,
+        },
+        {
+          method: "GET",
+          url: "/controllers/:id",
+          description: "Get details of a specific controller by ID.",
+          hasParams: true,
+          paramName: "id",
+        },
+        {
+          method: "POST",
+          url: "/controllers",
+          description: "Create a new controller.",
+          hasBody: true,
+        },
+        {
+          method: "PUT",
+          url: "/controllers/:id",
+          description: "Update a specific controller by ID.",
+          hasParams: true,
+          paramName: "id",
+          hasBody: true,
+        },
+        {
+          method: "DELETE",
+          url: "/controllers/:id",
+          description: "Delete a specific controller by ID.",
+          hasParams: true,
+          paramName: "id",
+        },
+        {
+          method: "GET",
+          url: "/pins",
+          description: "Get a list of all pins.",
+          hasParams: false,
+        },
+        {
+          method: "GET",
+          url: "/tasks",
+          description: "Get a list of all tasks.",
+          hasParams: false,
+        },
+        {
+          method: "GET",
+          url: "/scenarios",
+          description: "Get a list of all scenarios.",
+          hasParams: false,
+        },
+      ];
+
+      // Function to render endpoints
+      function renderEndpoints() {
+        const endpointsContainer = document.getElementById("endpoints");
+        endpointsContainer.innerHTML = apiEndpoints
+          .map(
+            (endpoint) => `
+          <div class="endpoint">
+            <h2>
+              <span class="method">${endpoint.method}</span>
+              <span class="url">${endpoint.url}</span>
+            </h2>
+            <p>${endpoint.description}</p>
+            <div class="test-form">
+              ${
+                endpoint.hasParams
+                  ? `<input type="text" id="${endpoint.paramName}" placeholder="${endpoint.paramName}" />`
+                  : ""
+              }
+              ${
+                endpoint.hasBody
+                  ? `<textarea id="${endpoint.method}-body" placeholder="Request Body (JSON)"></textarea>`
+                  : ""
+              }
+              <button onclick="testEndpoint('${endpoint.method}', '${
+              endpoint.url
+            }', ${endpoint.hasParams}, '${endpoint.paramName}', ${
+              endpoint.hasBody
+            })">Test</button>
+              <div class="response" id="${endpoint.method}-response"></div>
+            </div>
+          </div>
+        `
+          )
+          .join("");
+      }
+
+      // Function to test an endpoint
+      async function testEndpoint(method, url, hasParams, paramName, hasBody) {
+        let fullUrl = url;
+        if (hasParams) {
+          const paramValue = document.getElementById(paramName).value;
+          fullUrl = url.replace(`:${paramName}`, paramValue);
+        }
+
+        const options = {
+          method: method,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+
+        if (hasBody) {
+          const body = document.getElementById(`${method}-body`).value;
+          options.body = body;
+        }
+
+        const responseElement = document.getElementById(`${method}-response`);
+        responseElement.textContent = "Loading...";
+        responseElement.className = "response";
+
+        try {
+          const response = await fetch(fullUrl, options);
+          const data = await response.json();
+          responseElement.textContent = JSON.stringify(data, null, 2);
+          responseElement.classList.add("success");
+        } catch (error) {
+          responseElement.textContent = `Error: ${error.message}`;
+          responseElement.classList.add("error");
+        }
+      }
+
+      // Render endpoints on page load
+      renderEndpoints();
+    </script>
+  </body>
+</html>

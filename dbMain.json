@@ -1,0 +1,164 @@
+{
+  "setting": {
+    "package_id": 0,
+    "name": "Home Automation System"
+  },
+  "controllers": [
+    {
+      "_id": "590979f0-ce21-4ef4-a716-3b28e5445622",
+      "name": "Main Controller",
+      "type": "1",
+      "protocol": "TCP",
+      "ip": "192.168.1.100",
+      "port": 4000,
+      "controller_unit": 1,
+      "count_pin_out": 100,
+      "count_pin_in": 100,
+      "count_total_pin": 200
+    },
+    {
+      "_id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d",
+      "name": "Garage Controller",
+      "type": "2",
+      "protocol": "UDP",
+      "ip": "192.168.1.101",
+      "port": 4001,
+      "controller_unit": 2,
+      "count_pin_out": 50,
+      "count_pin_in": 50,
+      "count_total_pin": 100
+    },
+    {
+      "_id": "b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e",
+      "name": "Lighting Controller",
+      "type": "1",
+      "protocol": "TCP",
+      "ip": "192.168.1.102",
+      "port": 4002,
+      "controller_unit": 3,
+      "count_pin_out": 80,
+      "count_pin_in": 80,
+      "count_total_pin": 160
+    },
+    {
+      "_id": "c3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7f",
+      "name": "Security Controller",
+      "type": "3",
+      "protocol": "TCP",
+      "ip": "192.168.1.103",
+      "port": 4003,
+      "controller_unit": 4,
+      "count_pin_out": 60,
+      "count_pin_in": 60,
+      "count_total_pin": 120
+    },
+    {
+      "_id": "d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7f8g",
+      "name": "Climate Controller",
+      "type": "4",
+      "protocol": "TCP",
+      "ip": "192.168.1.104",
+      "port": 4004,
+      "controller_unit": 5,
+      "count_pin_out": 40,
+      "count_pin_in": 40,
+      "count_total_pin": 80
+    }
+  ],
+  "pins": [
+    {
+      "_id": "f8196f67-f130-4304-b794-e58fe34a6602",
+      "type": "in",
+      "controller_id": "590979f0-ce21-4ef4-a716-3b28e5445622",
+      "number": 11
+    },
+    {
+      "_id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d",
+      "type": "out",
+      "controller_id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d",
+      "number": 5
+    },
+    {
+      "_id": "b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e",
+      "type": "in",
+      "controller_id": "b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e",
+      "number": 22
+    },
+    {
+      "_id": "c3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7f",
+      "type": "out",
+      "controller_id": "c3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7f",
+      "number": 33
+    },
+    {
+      "_id": "d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7f8g",
+      "type": "in",
+      "controller_id": "d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7f8g",
+      "number": 44
+    }
+  ],
+  "tasks": [
+    {
+      "_id": "ddb14f3a-7aba-478b-be99-23b7b96cd729",
+      "name": "Turn on Lights",
+      "description": "Activate lights in the living room at sunset",
+      "controller_id": "590979f0-ce21-4ef4-a716-3b28e5445622",
+      "pin_numbers": [11, 1, 2, 20],
+      "scenario_id": "25b14abb-6cbb-4159-a9be-8c53a9c15e11"
+    },
+    {
+      "_id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d",
+      "name": "Open Garage Door",
+      "description": "Open the garage door when motion is detected",
+      "controller_id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d",
+      "pin_numbers": [5, 6, 7],
+      "scenario_id": "35b14abb-6cbb-4159-a9be-8c53a9c15e12"
+    },
+    {
+      "_id": "b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e",
+      "name": "Dim Living Room Lights",
+      "description": "Dim the lights in the living room for a cozy atmosphere",
+      "controller_id": "b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e",
+      "pin_numbers": [22, 23, 24],
+      "scenario_id": "45b14abb-6cbb-4159-a9be-8c53a9c15e13"
+    },
+    {
+      "_id": "c3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7f",
+      "name": "Activate Security Alarm",
+      "description": "Trigger the security alarm when a breach is detected",
+      "controller_id": "c3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7f",
+      "pin_numbers": [33, 34, 35],
+      "scenario_id": "55b14abb-6cbb-4159-a9be-8c53a9c15e14"
+    },
+    {
+      "_id": "d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7f8g",
+      "name": "Adjust Thermostat",
+      "description": "Set the thermostat to 72°F when the house is occupied",
+      "controller_id": "d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7f8g",
+      "pin_numbers": [44, 45, 46],
+      "scenario_id": "65b14abb-6cbb-4159-a9be-8c53a9c15e15"
+    }
+  ],
+  "scenarios": [
+    {
+      "_id": "25b14abb-6cbb-4159-a9be-8c53a9c15e11",
+      "name": "Evening Routine"
+    },
+    {
+      "_id": "35b14abb-6cbb-4159-a9be-8c53a9c15e12",
+      "name": "Garage Access"
+    },
+    {
+      "_id": "45b14abb-6cbb-4159-a9be-8c53a9c15e13",
+      "name": "Relaxation Mode"
+    },
+    {
+      "_id": "55b14abb-6cbb-4159-a9be-8c53a9c15e14",
+      "name": "Security Breach"
+    },
+    {
+      "_id": "65b14abb-6cbb-4159-a9be-8c53a9c15e15",
+      "name": "Comfort Mode"
+    }
+  ]
+}
