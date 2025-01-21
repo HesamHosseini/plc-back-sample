@@ -1,3 +1,8 @@
 {
-  "port": 3001
+  "app": "aaaaaaaa",
+  "port": 3001,
+  "build": {
+    "location": "iran"
+  },
+  "disks": []
 }
