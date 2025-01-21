@@ -111,12 +111,14 @@
       // Define your API endpoints
       const apiEndpoints = [
         {
+          id: "1",
           method: "GET",
           url: "/controllers",
           description: "Get a list of all controllers.",
           hasParams: false,
         },
         {
+          id: "2",
           method: "GET",
           url: "/controllers/:id",
           description: "Get details of a specific controller by ID.",
@@ -124,12 +126,14 @@
           paramName: "id",
         },
         {
+          id: "3",
           method: "POST",
           url: "/controllers",
           description: "Create a new controller.",
           hasBody: true,
         },
         {
+          id: "4",
           method: "PUT",
           url: "/controllers/:id",
           description: "Update a specific controller by ID.",
@@ -138,6 +142,7 @@
           hasBody: true,
         },
         {
+          id: "5",
           method: "DELETE",
           url: "/controllers/:id",
           description: "Delete a specific controller by ID.",
@@ -145,18 +150,21 @@
           paramName: "id",
         },
         {
+          id: "6",
           method: "GET",
           url: "/pins",
           description: "Get a list of all pins.",
           hasParams: false,
         },
         {
+          id: "7",
           method: "GET",
           url: "/tasks",
           description: "Get a list of all tasks.",
           hasParams: false,
         },
         {
+          id: "8",
           method: "GET",
           url: "/scenarios",
           description: "Get a list of all scenarios.",
@@ -192,7 +200,9 @@
             }', ${endpoint.hasParams}, '${endpoint.paramName}', ${
               endpoint.hasBody
             })">Test</button>
-              <div class="response" id="${endpoint.method}-response"></div>
+              <div class="response-${endpoint.id}" id="${
+              endpoint.method
+            }-response"></div>
             </div>
           </div>
         `
@@ -220,7 +230,12 @@
           options.body = body;
         }
 
-        const responseElement = document.getElementById(`${method}-response`);
+        // const responseElement = document.getElementById(`${method}-response`);
+        debugger;
+        const endpoint = apiEndpoints.find((endpoint) => endpoint.url === url);
+        const responseElement = document.querySelector(
+          `.response-${endpoint.id}`
+        );
         responseElement.textContent = "Loading...";
         responseElement.className = "response";
 
